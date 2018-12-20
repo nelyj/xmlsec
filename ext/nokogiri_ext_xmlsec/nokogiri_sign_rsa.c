@@ -56,7 +56,7 @@ VALUE sign_with_key(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key) {
   }
   
   // add <dsig:KeyValue />
-  if(xmlSecTmplKeyInfoAddKeyValue(keyInfoNode, NULL) == NULL) {
+  if(xmlSecTmplKeyInfoAddKeyValue(keyInfoNode) == NULL) {
     rb_raise(rb_eSigningError, "failed to add key info");
     goto done;
   }
