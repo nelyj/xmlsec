@@ -54,6 +54,12 @@ VALUE sign_with_key(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key) {
     rb_raise(rb_eSigningError, "failed to add key name");
     goto done;
   }
+  
+  // add <dsig:KeyValue />
+  if(xmlSecTmplKeyInfoAddKeyValue(keyInfoNode, NULL) == NULL) {
+    rb_raise(rb_eSigningError, "failed to add key info");
+    goto done;
+  }
 
   // create signature context, we don't need keys manager in this example
   dsigCtx = xmlSecDSigCtxCreate(NULL);
