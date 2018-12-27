@@ -21,7 +21,7 @@ VALUE sign_with_key(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key) {
   // create signature template for RSA-SHA1 enveloped signature
   //signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformExclC14NId,
   //                                       xmlSecTransformRsaSha1Id, NULL);
-  signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformIncC14NId,
+  signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformInclC14NId,
                                          xmlSecTransformRsaSha1Id, NULL);
   if (signNode == NULL) {
     rb_raise(rb_eSigningError, "failed to create signature template");
