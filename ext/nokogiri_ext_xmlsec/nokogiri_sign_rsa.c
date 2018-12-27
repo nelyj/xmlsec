@@ -63,6 +63,11 @@ VALUE sign_with_key(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key) {
     goto done;
   }
 
+  if(xmlSecTmplKeyInfoAddX509Data(keyInfoNode) == NULL) {
+    rb_raise(rb_eSigningError, "failed to add X509Data node");
+    goto done;
+  }
+
   // create signature context, we don't need keys manager in this example
   dsigCtx = xmlSecDSigCtxCreate(NULL);
   if(dsigCtx == NULL) {
