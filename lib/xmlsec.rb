@@ -18,7 +18,11 @@ class Nokogiri::XML::Document
   def sign! opts
     if (cert = opts[:x509]) || (cert = opts[:cert]) || (cert = opts[:certificate])
       raise "need a private :key" unless opts[:key]
-      sign_with_certificate opts[:name].to_s, opts[:key], cert
+      if opts[:uri]
+        sign_with_certificate opts[:name].to_s, opts[:key], cert, opts[:uri]
+      else
+        sign_with_certificate opts[:name].to_s, opts[:key], cert, '#'
+      end
     elsif opts[:key]
       sign_with_key opts[:name].to_s, opts[:key]
     else

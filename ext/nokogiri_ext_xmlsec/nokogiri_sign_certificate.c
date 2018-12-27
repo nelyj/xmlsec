@@ -1,6 +1,6 @@
 #include "xmlsecrb.h"
 
-VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VALUE rb_cert) {
+VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VALUE rb_cert, VALUE rb_uri) {
   xmlDocPtr doc;
   xmlNodePtr signNode = NULL;
   xmlNodePtr refNode = NULL;
@@ -9,7 +9,10 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *keyName;
   char *certificate;
   char *rsaKey;
+  const xmlChar *uri;
   unsigned int rsaKeyLength, certificateLength;
+
+  uri = (const xmlChar *)RSTRING_PTR(rb_uri);
 
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
@@ -31,7 +34,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
 
   // add reference
   refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id,
-                                        NULL, NULL, NULL);
+                                        NULL, uri, NULL);
   if(refNode == NULL) {
     rb_raise(rb_eSigningError, "failed to add reference to signature template");
     goto done;
