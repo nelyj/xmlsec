@@ -2,7 +2,7 @@
 #define XMLSECRB_H
 
 #include <ruby.h>
-
+#include <string.h>
 #include <libxml/tree.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>

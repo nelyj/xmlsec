@@ -11,7 +11,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *rsaKey;
   unsigned int rsaKeyLength, certificateLength;
 
-  //uri = RSTRING_PTR(rb_uri);
+  urirb = RSTRING_PTR(rb_uri);
 
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
@@ -20,7 +20,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
   const xmlChar uri[] = "#invoice_9";
-  const xmlChar id[] = "";
+  const xmlChar id[] = "invoice_9";
   // create signature template for RSA-SHA1 enveloped signature
   signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformInclC14NId,
                                          xmlSecTransformRsaSha1Id, NULL);
@@ -32,12 +32,12 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   // add <dsig:Signature/> node to the doc
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
-  // add reference
-//  if(uri == "#") {
-//    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
- // else {
+  //add reference
+  if(strcmp(urirb,"#") == 0) {
+    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
+  else {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, id, uri, NULL);
- // }
+  }
 
   if(refNode == NULL) {
     rb_raise(rb_eSigningError, "failed to add reference to signature template");
