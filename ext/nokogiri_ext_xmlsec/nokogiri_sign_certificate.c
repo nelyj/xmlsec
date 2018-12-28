@@ -11,7 +11,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *rsaKey;
   unsigned int rsaKeyLength, certificateLength;
 
-  const xmlChar *urirb = "#";
+  const char urirb[] = "#";
 
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
