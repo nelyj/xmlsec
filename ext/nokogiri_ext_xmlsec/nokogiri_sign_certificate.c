@@ -23,8 +23,8 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   const xmlChar uri[] = "#invoice_9";
   const xmlChar id[] = "invoice_9";
 
-  printf(rb_key_name);
-  printf(rb_uri);
+  printf("%s",rb_key_name);
+  printf("%s",rb_uri);
 
   // create signature template for RSA-SHA1 enveloped signature
   signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformInclC14NId,
