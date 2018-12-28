@@ -9,7 +9,6 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *keyName;
   char *certificate;
   char *rsaKey;
-  const xmlChar *uri = "#test";
   unsigned int rsaKeyLength, certificateLength;
 
   //uri = RSTRING_PTR(rb_uri);
@@ -20,6 +19,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   keyName = RSTRING_PTR(rb_key_name);
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
+  const xmlChar uri[] = "#test1";
 
   // create signature template for RSA-SHA1 enveloped signature
   signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformInclC14NId,
