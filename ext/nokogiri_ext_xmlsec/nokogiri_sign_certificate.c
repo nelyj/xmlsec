@@ -20,8 +20,6 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   keyName = RSTRING_PTR(rb_key_name);
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
-  const xmlChar uri[] = "#invoice_9";
-  const xmlChar id[] = "invoice_9";
 
   printf("%s",keyName);
   printf("%s",uri);
