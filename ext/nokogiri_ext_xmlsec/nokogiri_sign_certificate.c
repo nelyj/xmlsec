@@ -33,11 +33,11 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
   // add reference
-  if(uri == "#") {
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
-  else {
+//  if(uri == "#") {
+//    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
+ // else {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, uri, NULL);
-  }
+ // }
 
   if(refNode == NULL) {
     rb_raise(rb_eSigningError, "failed to add reference to signature template");
