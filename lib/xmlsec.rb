@@ -21,7 +21,7 @@ class Nokogiri::XML::Document
       if opts[:uri]
         sign_with_certificate opts[:name].to_s, opts[:key], cert, opts[:uri]
       else
-        sign_with_certificate opts[:name].to_s, opts[:key], cert, '#test'
+        sign_with_certificate opts[:name].to_s, opts[:key], cert, '#'
       end
     elsif opts[:key]
       sign_with_key opts[:name].to_s, opts[:key]
