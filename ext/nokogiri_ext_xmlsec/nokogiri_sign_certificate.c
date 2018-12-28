@@ -9,7 +9,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *keyName;
   char *certificate;
   char *rsaKey;
-  const char *uri = "#test";
+  const xmlChar *uri = "#test";
   unsigned int rsaKeyLength, certificateLength;
 
   //uri = RSTRING_PTR(rb_uri);
