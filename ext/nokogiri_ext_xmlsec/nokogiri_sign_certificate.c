@@ -21,9 +21,6 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
 
-  printf("%s",keyName);
-  printf("%s",uri);
-
   // create signature template for RSA-SHA1 enveloped signature
   signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformInclC14NId,
                                          xmlSecTransformRsaSha1Id, NULL);
@@ -39,7 +36,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   if(strcmp(uri,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, uri, NULL);
+    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uri, NULL);
   }
 
   if(refNode == NULL) {
