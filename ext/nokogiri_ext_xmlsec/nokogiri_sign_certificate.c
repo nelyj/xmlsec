@@ -10,13 +10,15 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *certificate;
   char *rsaKey;
   char *uri;
+  char *uri_symbol;
   unsigned int rsaKeyLength, certificateLength;
 
 
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
   rsaKeyLength = RSTRING_LEN(rb_rsa_key);
-  uri = RSTRING_PTR(rb_uri);
+  uri_id = RSTRING_PTR(rb_uri);
+  uri_symbol = "#";
   keyName = RSTRING_PTR(rb_key_name);
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
@@ -29,14 +31,15 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     goto done;
   }
 
+  strcat(uri_symbol, uri)
   // add <dsig:Signature/> node to the doc
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
   //add reference
-  if(strcmp(uri,"#") == 0) {
+  if(strcmp(uri_symbol,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uri, NULL);
+    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, uri, (xmlChar*)uri_symbol, NULL);
   }
 
   if(refNode == NULL) {
