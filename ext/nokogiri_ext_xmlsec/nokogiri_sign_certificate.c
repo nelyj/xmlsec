@@ -33,7 +33,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
   //add reference
-  if(strcmp(uri_symbol,"#") == 0) {
+  if(strcmp(uri,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, "invoice_9", (xmlChar*)uri, NULL);
