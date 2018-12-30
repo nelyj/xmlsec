@@ -33,6 +33,10 @@ class Nokogiri::XML::Document
     self
   end
 
+  def set_id! node
+    set_id_attribute(node_name)
+  end
+
   # Verifies the signature on the current document.
   #
   # Returns `true` if the signature is valid, `false` otherwise.
