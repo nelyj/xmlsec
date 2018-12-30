@@ -1,6 +1,6 @@
 #include "xmlsecrb.h"
 
-VALUE set_id_attribute(VALUE self, VALUE rb_attr_name) {
+VALUE set_attribute_id_hack(VALUE self, VALUE rb_attr_name) {
   xmlNodePtr node;
   xmlAttrPtr attr;
   xmlAttrPtr tmp;
