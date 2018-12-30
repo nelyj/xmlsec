@@ -31,7 +31,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     goto done;
   }
 
-  strcat(uri_symbol, uri)
+  strcat(uri_symbol, uri);
   // add <dsig:Signature/> node to the doc
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
