@@ -34,7 +34,7 @@ class Nokogiri::XML::Document
   end
 
   def set_id! opts
-    set_id_attribute(opts[:id])
+    set_id_attribute opts[:rb_attr_name]
   end
 
   # Verifies the signature on the current document.
