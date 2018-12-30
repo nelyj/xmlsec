@@ -33,8 +33,8 @@ class Nokogiri::XML::Document
     self
   end
 
-  def set_id! node
-    set_id_attribute(node_name)
+  def set_id! opts
+    set_id_attribute(opts[:id])
   end
 
   # Verifies the signature on the current document.
