@@ -1,4 +1,4 @@
-require "xmlsec/version"
+require 'xmlsec/version'
 require 'nokogiri'
 require 'nokogiri_ext_xmlsec'
 
