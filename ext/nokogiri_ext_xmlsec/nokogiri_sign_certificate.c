@@ -10,7 +10,6 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *certificate;
   char *rsaKey;
   char *uri;
-  char *uri_symbol;
   unsigned int rsaKeyLength, certificateLength;
 
 
@@ -18,7 +17,6 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   rsaKey = RSTRING_PTR(rb_rsa_key);
   rsaKeyLength = RSTRING_LEN(rb_rsa_key);
   uri = RSTRING_PTR(rb_uri);
-  uri_symbol = "#";
   keyName = RSTRING_PTR(rb_key_name);
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
