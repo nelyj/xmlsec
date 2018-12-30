@@ -17,7 +17,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
   rsaKeyLength = RSTRING_LEN(rb_rsa_key);
-  uri_id = RSTRING_PTR(rb_uri);
+  uri = RSTRING_PTR(rb_uri);
   uri_symbol = "#";
   keyName = RSTRING_PTR(rb_key_name);
   certificate = RSTRING_PTR(rb_cert);
