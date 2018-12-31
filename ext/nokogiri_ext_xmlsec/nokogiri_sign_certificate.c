@@ -51,12 +51,13 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
     tmp = xmlGetID(node, idXml);
-
+    printf("TMP: %s", tmp);
     if(tmp == NULL) {
       return(-1);
     }
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, idXml, (xmlChar*)uriVar, NULL);
     attr = xmlHasProp(node, idXml);
+    printf("ATTR: %s", attr);
     xmlAddID(NULL, doc, (xmlChar*)idXml, attr);
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
   }
