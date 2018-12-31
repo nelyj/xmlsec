@@ -22,6 +22,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
 
+
   strcat(uriVar, "#");
   strcat(uriVar, idXml);
 
@@ -44,6 +45,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, idXml, (xmlChar*)uriVar, NULL);
+    xmlAddID(NULL, doc, (xmlChar*)idXml, "ID");
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
   }
 
