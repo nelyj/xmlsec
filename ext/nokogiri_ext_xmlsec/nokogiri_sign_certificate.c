@@ -50,8 +50,13 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   if(strcmp(uriVar,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
+    
+    printf("NODE: %s \n", node);
+
     tmp = xmlGetID(node, idXml);
-    printf("TMP: %s", tmp);
+
+    printf("TMP: %s \n", tmp);
+
     if(tmp == NULL) {
       return(-1);
     }
