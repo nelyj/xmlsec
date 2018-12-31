@@ -44,14 +44,12 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
   node = xmlDocGetRootElement(doc);
-  node = xmlCopyNode(node, 1);
 
   //add reference
   if(strcmp(uriVar,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
     
-    printf("NODE: %s \n", node);
 
     tmp = xmlGetID(node, idXml);
 
