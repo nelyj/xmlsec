@@ -16,7 +16,6 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   char *idXml;
   unsigned int rsaKeyLength, certificateLength;
 
-
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
   rsaKeyLength = RSTRING_LEN(rb_rsa_key);
@@ -43,25 +42,23 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   // add <dsig:Signature/> node to the doc
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
-  node = xmlDocGetRootElement(doc);
+  //node = xmlDocGetRootElement(doc);
 
   //add reference
   if(strcmp(uriVar,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
-    
+   // tmp = xmlGetID(node, idXml);
 
-    tmp = xmlGetID(node, idXml);
+    //printf("TMP: %s \n", tmp);
 
-    printf("TMP: %s \n", tmp);
-
-    if(tmp == NULL) {
-      return(-1);
-    }
+    //if(tmp == NULL) {
+    //  return(-1);
+    //}
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, idXml, (xmlChar*)uriVar, NULL);
-    attr = xmlHasProp(node, idXml);
-    printf("ATTR: %s", attr);
-    xmlAddID(NULL, doc, (xmlChar*)idXml, attr);
+    //attr = xmlHasProp(node, idXml);
+    //printf("ATTR: %s", attr);
+    //xmlAddID(NULL, doc, (xmlChar*)idXml, attr);
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
   }
 
