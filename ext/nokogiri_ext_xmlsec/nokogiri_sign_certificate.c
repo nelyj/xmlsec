@@ -4,6 +4,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlDocPtr doc;
   xmlNodePtr signNode = NULL;
   xmlNodePtr refNode = NULL;
+  xmlNodePtr node;
   xmlNodePtr keyInfoNode = NULL;
   xmlSecDSigCtxPtr dsigCtx = NULL;
   xmlAttrPtr attr;
@@ -41,20 +42,23 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
 
   // add <dsig:Signature/> node to the doc
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
+  
+  node = xmlDocGetRootElement(doc);
+  node = xmlCopyNode(node, 1);
 
   //add reference
   if(strcmp(uriVar,"#") == 0) {
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
+    refNode = xmlSecTmplSignatureAddReference(node, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
-    tmp = xmlGetID(doc, idXml);
+    tmp = xmlGetID(node, idXml);
 
     if(tmp == NULL) {
       return(-1);
     }
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, idXml, (xmlChar*)uriVar, NULL);
-    attr = xmlHasProp(signNode, idXml);
+    attr = xmlHasProp(node, idXml);
     xmlAddID(NULL, doc, (xmlChar*)idXml, attr);
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
+    refNode = xmlSecTmplSignatureAddReference(node, xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
   }
 
   if(refNode == NULL) {
