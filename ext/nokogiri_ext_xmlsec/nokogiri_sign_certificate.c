@@ -6,20 +6,27 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlNodePtr refNode = NULL;
   xmlNodePtr keyInfoNode = NULL;
   xmlSecDSigCtxPtr dsigCtx = NULL;
+  char uriVar[50];
   char *keyName;
   char *certificate;
   char *rsaKey;
-  char *uri;
+  char *idXml;
   unsigned int rsaKeyLength, certificateLength;
 
 
   Data_Get_Struct(self, xmlDoc, doc);
   rsaKey = RSTRING_PTR(rb_rsa_key);
   rsaKeyLength = RSTRING_LEN(rb_rsa_key);
-  uri = RSTRING_PTR(rb_uri);
+  idXml = RSTRING_PTR(rb_uri);
   keyName = RSTRING_PTR(rb_key_name);
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
+
+  strcat(uriVar, "#");
+  strcat(uriVar, idXml);
+
+  printf("ID rb var: %s \n", idXml);
+  printf("URI rb var: %s \n", uriVar);
 
   // create signature template for RSA-SHA1 enveloped signature
   signNode = xmlSecTmplSignatureCreate(doc, xmlSecTransformInclC14NId,
@@ -33,10 +40,10 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
   //add reference
-  if(strcmp(uri,"#") == 0) {
+  if(strcmp(idXml,"#") == 0) {
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
   } else {
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, "F60T33", (xmlChar*)uri, NULL);
+    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, idXml, (xmlChar*)uriVar, NULL);
   }
 
   if(refNode == NULL) {
