@@ -6,6 +6,8 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlNodePtr refNode = NULL;
   xmlNodePtr keyInfoNode = NULL;
   xmlSecDSigCtxPtr dsigCtx = NULL;
+  xmlAttrPtr attr;
+  xmlAttrPtr tmp;
   char uriVar[50] = "";
   char *keyName;
   char *certificate;
