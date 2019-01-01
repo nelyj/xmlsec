@@ -25,7 +25,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
 
-  printf("xmlDoc var: %s \n", doc);
+  //printf("xmlDoc var: %s \n", doc);
   strcat(uriVar, "#");
   strcat(uriVar, idXml);
 
@@ -46,10 +46,10 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   //node = xmlDocGetRootElement(doc);
 
   //add reference
-  if(strcmp(uriVar,"#") == 0) {
+//  if(strcmp(uriVar,"#") == 0) {
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
-  } else {
+//  } else {
    // tmp = xmlGetID(node, idXml);
 
     //printf("TMP: %s \n", tmp);
@@ -61,8 +61,8 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     //attr = xmlHasProp(node, idXml);
     //printf("ATTR: %s", attr);
     //xmlAddID(NULL, doc, (xmlChar*)idXml, attr);
-    refNode = xmlSecTmplSignatureAddReference(xmlDocGetRootElement(doc), xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
-  }
+//    refNode = xmlSecTmplSignatureAddReference(xmlDocGetRootElement(doc), xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
+//  }
 
   if(refNode == NULL) {
     rb_raise(rb_eSigningError, "failed to add reference to signature template");
