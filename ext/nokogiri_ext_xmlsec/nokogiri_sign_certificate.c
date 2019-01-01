@@ -49,7 +49,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   //add reference
 //  if(strcmp(uriVar,"#") == 0) {
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
-    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
+    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, node, NULL);
 //  } else {
    // tmp = xmlGetID(node, idXml);
 
