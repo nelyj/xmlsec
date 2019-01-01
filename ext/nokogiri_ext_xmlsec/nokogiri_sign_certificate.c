@@ -25,7 +25,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   certificate = RSTRING_PTR(rb_cert);
   certificateLength = RSTRING_LEN(rb_cert);
 
-
+  printf("xmlDoc var: %s \n", doc);
   strcat(uriVar, "#");
   strcat(uriVar, idXml);
 
