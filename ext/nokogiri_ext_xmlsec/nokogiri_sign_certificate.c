@@ -4,7 +4,8 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlDocPtr doc;
   xmlNodePtr signNode = NULL;
   xmlNodePtr refNode = NULL;
-  xmlNodePtr node;
+  xmlNode *node;
+  xmlNode *cur_node = NULL;
   xmlNodePtr keyInfoNode = NULL;
   xmlSecDSigCtxPtr dsigCtx = NULL;
   xmlAttrPtr attr;
@@ -44,8 +45,17 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   xmlAddChild(xmlDocGetRootElement(doc), signNode);
 
   node = xmlDocGetRootElement(doc);
-  printf("NODE: %s", node);
-  printf("SIGN-NODE: %s", signNode);
+  printf("\n NODE: %s", node);
+  printf("\n SIGN-NODE: %s", signNode);
+
+
+  for(cur_node = node; cur_node; cur_node = cur_node->next)
+  {
+    if(cur_node->type == XML_ELEMENT_NODE)
+    {
+      printf("node type: Element, name: %s\n", cur_node->name);
+    }
+  }
 
   //add reference
 //  if(strcmp(uriVar,"#") == 0) {
