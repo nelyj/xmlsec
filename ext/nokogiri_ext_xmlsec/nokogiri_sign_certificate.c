@@ -54,6 +54,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     if(cur_node->type == XML_ELEMENT_NODE)
     {
       printf("node type: Element, name: %s\n", cur_node->name);
+      printf("node type: Element, Type: %s\n", cur_node->type);
     }
   }
 
