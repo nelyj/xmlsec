@@ -59,10 +59,10 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   }
 
   //add reference
-//  if(strcmp(uriVar,"#") == 0) {
+  if(strcmp(uriVar,"#") == 0) {
     //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
     refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, NULL, NULL);
-//  } else {
+  } else {
    // tmp = xmlGetID(node, idXml);
 
     //printf("TMP: %s \n", tmp);
@@ -70,12 +70,12 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
     //if(tmp == NULL) {
     //  return(-1);
     //}
-    //refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, idXml, (xmlChar*)uriVar, NULL);
+    refNode = xmlSecTmplSignatureAddReference(signNode, xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
     //attr = xmlHasProp(node, idXml);
     //printf("ATTR: %s", attr);
     //xmlAddID(NULL, doc, (xmlChar*)idXml, attr);
 //    refNode = xmlSecTmplSignatureAddReference(xmlDocGetRootElement(doc), xmlSecTransformSha1Id, NULL, (xmlChar*)uriVar, NULL);
-//  }
+  }
 
   if(refNode == NULL) {
     rb_raise(rb_eSigningError, "failed to add reference to signature template");
