@@ -23,7 +23,6 @@ void Init_Nokogiri_ext() {
   rb_define_method(rb_cNokogiri_XML_Document, "encrypt_with_key",         encrypt_with_key, 2);
   rb_define_method(rb_cNokogiri_XML_Document, "decrypt_with_key",         decrypt_with_key, 2);
   rb_define_method(rb_cNokogiri_XML_Node,     "set_id_attribute",         set_id_attribute, 1);
-  rb_define_method(rb_cNokogiri_XML_Node,     "set_attribute_id_hack",         set_attribute_id_hack, 1);
 
   rb_eSigningError      = rb_define_class_under(XMLSec, "SigningError",      rb_eRuntimeError);
   rb_eVerificationError = rb_define_class_under(XMLSec, "VerificationError", rb_eRuntimeError);
