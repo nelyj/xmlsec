@@ -25,7 +25,11 @@ VALUE set_id_attribute(VALUE self, VALUE rb_attr_name) {
     return(-1);
   }
 
-  printf("rb_attr_name: %s", idName);
+  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  int size = (nodes) ? nodes->nodeNr : 0;
+
+  printf("Nodes found: %i", size);
+  printf("rb_attr_name: %s \n", idName);
 
   // find pointer to id attribute
   attr = xmlHasProp(node, idName);
