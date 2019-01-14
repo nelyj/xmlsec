@@ -11,6 +11,8 @@ VALUE set_id_attribute(VALUE self, VALUE rb_attr_name) {
   Check_Type(rb_attr_name, T_STRING);
   idName = (const xmlChar *)RSTRING_PTR(rb_attr_name);
 
+  printf("rb_attr_name: %s", rb_attr_name);
+
   // find pointer to id attribute
   attr = xmlHasProp(node, idName);
   if((attr == NULL) || (attr->children == NULL)) {
