@@ -1,15 +1,29 @@
 #include "xmlsecrb.h"
 
 VALUE set_id_attribute(VALUE self, VALUE rb_attr_name) {
+  xmlDocPtr doc;
   xmlNodePtr node;
   xmlAttrPtr attr;
   xmlAttrPtr tmp;
   xmlChar *name;
   const xmlChar *idName;
-  
+
+  Data_Get_Struct(self, xmlDoc, doc);
   Data_Get_Struct(self, xmlNode, node);
   Check_Type(rb_attr_name, T_STRING);
   idName = (const xmlChar *)RSTRING_PTR(rb_attr_name);
+  xmlXPathContextPtr xpathCtx = xmlXPathNewContext(doc);
+
+  xmlChar* xpathExpr = "//*[@ID | @Id | @id]";
+
+  xmlXPathObjectPtr xpathObj = xmlXPathEvalExpression(xpathExpr, xpathCtx);
+
+  if(xpathObj == NULL) {
+    xmlXPathFreeContext(xpathCtx);
+    xmlFreeDoc(doc); 
+    rb_raise(rb_eRuntimeError,"Error: unable to evaluate xpath expression \"%s\"\n", xpathExpr);
+    return(-1);
+  }
 
   printf("rb_attr_name: %s", idName);
 
