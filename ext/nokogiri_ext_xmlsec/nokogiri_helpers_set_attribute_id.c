@@ -3,9 +3,9 @@
 VALUE set_id_attribute(VALUE self, VALUE rb_attr_name) {
   xmlDocPtr doc;
   xmlNodePtr node;
-  xmlAttrPtr attr;
-  xmlAttrPtr tmp;
-  xmlChar *name;
+  //xmlAttrPtr attr;
+  //xmlAttrPtr tmp;
+  //xmlChar *name;
   const xmlChar *idName;
 
   Data_Get_Struct(self, xmlDoc, doc);
