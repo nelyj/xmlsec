@@ -83,7 +83,7 @@ VALUE sign_with_certificate(VALUE self, VALUE rb_key_name, VALUE rb_rsa_key, VAL
   }
 
   // add enveloped transform
-  if(xmlSecTmplReferenceAddTransform(refNode, xmlSecTransformEnvelopedId) == NULL) {
+  if(xmlSecTmplReferenceAddTransform(refNode, xmlSecTransformInclC14NId) == NULL) {
     rb_raise(rb_eSigningError, "failed to add enveloped transform to reference");
     goto done;
   }

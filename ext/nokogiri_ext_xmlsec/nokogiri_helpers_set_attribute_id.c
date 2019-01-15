@@ -55,6 +55,7 @@ VALUE set_id_attribute(VALUE self, VALUE rb_attr_name) {
       xmlFree(name);
       return 0;
     }
+    printf("ESTOY xmlADDID \n");
     xmlAddID(NULL, doc, name, attr);
     xmlFree(name);
   }
